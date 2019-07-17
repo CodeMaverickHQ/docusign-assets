@@ -21,6 +21,7 @@ def signRoute(asset):
     testuser={'email':'', 'name':''}
     testuser['email']=request.form['email']
     testuser['name']=request.form['name']
+    #specify the admin
     admin={'email':'admin.admin@theadminuser.com', 'name':'Admin of Admin'}
     docuSignModule.userAgreement(admin, testuser, asset)
     return('sign route {} for user {} - return <a href="/">home</a>'.format(asset, testuser['name']))
