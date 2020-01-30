@@ -17,9 +17,10 @@ def asset_index():
 @APP.route('/assets/<asset>')
 def asset_show(asset):
     ''' asset show route '''
-    return '''<h1>Asset{0}</h1> <p>Sent user agreement to</p><form method="POST" action="/sign/{0}">
+    page = '''<h1>Asset{0}</h1> <p>Sent user agreement to</p><form method="POST" action="/sign/{0}">
     <input placeholder="Name" name="name"><input placeholder="email" name="email">
     <input type="submit"></form>'''.format(asset)
+    return page
 
 @APP.route('/sign/<asset>', methods=['GET', 'POST'])
 def sign_route(asset):
