@@ -1,18 +1,21 @@
 ''' Starting point for docusign-asset app with flask'''
 from flask import Flask, request
-import docuSignModule
+import docu_sign_module
 
 APP = Flask(__name__)
+
 
 @APP.route('/')
 def index():
     ''' index route '''
     return '<h1>welcome</h1> <a href="/assets">Assets</a>'
 
+
 @APP.route('/assets')
 def asset_index():
     ''' asset route '''
     return '<h1>Assets</h1> <ul><li><a href="assets/1231">1231</a></li></ul>'
+
 
 @APP.route('/assets/<asset>')
 def asset_show(asset):
@@ -22,16 +25,18 @@ def asset_show(asset):
     <input type="submit"></form>'''.format(asset)
     return page
 
+
 @APP.route('/sign/<asset>', methods=['GET', 'POST'])
 def sign_route(asset):
     ''' sign route '''
     asset = asset.upper()
-    testuser = {'email':'', 'name':''}
+    testuser = {'email': '', 'name': ''}
     testuser['email'] = request.form['email']
     testuser['name'] = request.form['name']
-    admin = {'email':'admin.admin@theadminuser.com', 'name':'Admin of Admin'}
-    docuSignModule.userAgreement(admin, testuser, asset)
+    admin = {'email': 'admin.admin@theadminuser.com', 'name': 'Admin of Admin'}
+    docu_sign_module.user_agreement(admin, testuser, asset)
     return 'sign route {} for user {} - return <a href="/">home</a>'.format(asset, testuser['name'])
+
 
 if __name__ == '__main__':
     APP.run(host='0.0.0.0', port=80)
